@@ -43,7 +43,7 @@ app_license = "mit"
 # page_js = {"page" : "public/js/file.js"}
 
 # include js in doctype views
-# doctype_js = {"doctype" : "public/js/doctype.js"}
+doctype_js = {"Item": "public/js/item.js"}
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
@@ -137,13 +137,12 @@ app_license = "mit"
 # ---------------
 # Hook on document methods and events
 
-# doc_events = {
-# 	"*": {
-# 		"on_update": "method",
-# 		"on_cancel": "method",
-# 		"on_trash": "method"
-# 	}
-# }
+doc_events = {
+	"Item": {
+		"before_insert": "bahrain_vat.doc_events.item.on_update",
+		"on_update": "bahrain_vat.doc_events.item.on_update",
+	}
+}
 
 # Scheduled Tasks
 # ---------------
@@ -241,4 +240,23 @@ app_license = "mit"
 # default_log_clearing_doctypes = {
 # 	"Logging DocType Name": 30  # days to retain logs
 # }
+
+fixtures = [
+	{
+		"doctype": "Custom Field",
+		"filters": [["module", "in", "Bahrain Vat"]],
+	},
+	{
+		"doctype": "Property Setter",
+		"filters": [["module", "in", "Bahrain Vat"]],
+	},
+	{
+		"doctype": "Number Card",
+		"filters": [["name", "in", ["Output VAT (Sales)", "Input VAT (Purchases)", "Net VAT Payable"]]],
+	},
+	{
+		"doctype": "Workspace",
+		"filters": [["module", "in", "Bahrain Vat"]],
+	},
+]
 

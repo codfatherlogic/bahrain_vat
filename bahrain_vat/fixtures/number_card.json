@@ -1,0 +1,42 @@
+[
+  {
+    "doctype": "Number Card",
+    "name": "Output VAT (Sales)",
+    "label": "Output VAT (Sales)",
+    "document_type": "Sales Taxes and Charges",
+    "parent_document_type": "Sales Invoice",
+    "function": "Sum",
+    "aggregate_function_based_on": "base_tax_amount",
+    "filters_json": "[]",
+    "is_public": 1,
+    "show_percentage_stats": 1,
+    "stats_time_interval": "Monthly",
+    "color": "#29CD42",
+    "type": "Document Type"
+  },
+  {
+    "doctype": "Number Card",
+    "name": "Input VAT (Purchases)",
+    "label": "Input VAT (Purchases)",
+    "document_type": "Purchase Taxes and Charges",
+    "parent_document_type": "Purchase Invoice",
+    "function": "Sum",
+    "aggregate_function_based_on": "base_tax_amount",
+    "filters_json": "[]",
+    "is_public": 1,
+    "show_percentage_stats": 1,
+    "stats_time_interval": "Monthly",
+    "color": "#FF5858",
+    "type": "Document Type"
+  },
+  {
+    "doctype": "Number Card",
+    "name": "Net VAT Payable",
+    "label": "Net VAT Payable",
+    "method": "bahrain_vat.api.get_net_vat",
+    "is_public": 1,
+    "show_percentage_stats": 0,
+    "color": "#5E64FF",
+    "type": "Custom"
+  }
+]

@@ -1,0 +1,97 @@
+{
+ "actions": [],
+ "autoname": "field:company",
+ "creation": "2024-01-01 00:00:00",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "company",
+  "vat_accounts_section",
+  "bahrain_vat_sales_accounts",
+  "section_break_tiib",
+  "bahrain_vat_purchase_accounts"
+ ],
+ "fields": [
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Company",
+   "options": "Company",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "vat_accounts_section",
+   "fieldtype": "Section Break",
+   "label": "VAT Accounts"
+  },
+  {
+   "fieldname": "bahrain_vat_sales_accounts",
+   "fieldtype": "Table",
+   "label": "Bahrain VAT Sales Accounts",
+   "options": "Bahrain VAT Sales Account"
+  },
+  {
+   "fieldname": "bahrain_vat_purchase_accounts",
+   "fieldtype": "Table",
+   "label": "Bahrain VAT Purchase Accounts",
+   "options": "Bahrain VAT Purchase Account"
+  },
+  {
+   "fieldname": "section_break_tiib",
+   "fieldtype": "Section Break"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-02-03 07:59:01.463755",
+ "modified_by": "Administrator",
+ "module": "Bahrain Vat",
+ "name": "Bahrain VAT Setting",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Accounts Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Accounts User",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

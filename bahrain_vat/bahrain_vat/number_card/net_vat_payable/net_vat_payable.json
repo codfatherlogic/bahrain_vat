@@ -1,0 +1,22 @@
+{
+ "color": "#5E64FF",
+ "creation": "2026-02-03 07:53:36.840176",
+ "currency": "BHD",
+ "docstatus": 0,
+ "doctype": "Number Card",
+ "function": "Count",
+ "idx": 0,
+ "is_public": 1,
+ "is_standard": 1,
+ "label": "Net VAT Payable",
+ "method": "bahrain_vat.api.get_net_vat",
+ "modified": "2026-02-03 07:53:36.840176",
+ "modified_by": "Administrator",
+ "module": "Bahrain Vat",
+ "name": "Net VAT Payable",
+ "owner": "Administrator",
+ "report_function": "Sum",
+ "show_percentage_stats": 0,
+ "stats_time_interval": "Daily",
+ "type": "Custom"
+}

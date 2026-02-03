@@ -1,0 +1,107 @@
+{
+ "charts": [],
+ "content": "[{\"id\":\"vat_summary_section\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>VAT Summary</b></span>\",\"col\":12}},{\"id\":\"output_vat_card\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Output VAT (Sales)\",\"col\":4}},{\"id\":\"input_vat_card\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Input VAT (Purchases)\",\"col\":4}},{\"id\":\"net_vat_card\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Net VAT Payable\",\"col\":4}},{\"id\":\"spacer1\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"shortcuts_section\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Shortcuts</b></span>\",\"col\":12}},{\"id\":\"shortcut_row\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Bahrain VAT Report\",\"col\":4}},{\"id\":\"shortcut_setting\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Bahrain VAT Setting\",\"col\":4}},{\"id\":\"shortcut_sales\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Sales Invoice\",\"col\":4}},{\"id\":\"spacer2\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"links_section\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Reports & Settings</b></span>\",\"col\":12}},{\"id\":\"links_card\",\"type\":\"card\",\"data\":{\"card_name\":\"VAT Reports\",\"col\":6}},{\"id\":\"settings_card\",\"type\":\"card\",\"data\":{\"card_name\":\"Settings\",\"col\":6}}]",
+ "creation": "2024-01-01 00:00:00.000000",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "tax",
+ "idx": 0,
+ "is_hidden": 0,
+ "label": "Bahrain VAT",
+ "links": [
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Bahrain VAT Report",
+   "link_count": 0,
+   "link_to": "Bahrain VAT",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Bahrain VAT Setting",
+   "link_count": 0,
+   "link_to": "Bahrain VAT Setting",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Sales Invoice",
+   "link_count": 0,
+   "link_to": "Sales Invoice",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Purchase Invoice",
+   "link_count": 0,
+   "link_to": "Purchase Invoice",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  }
+ ],
+ "modified": "2024-01-01 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Bahrain Vat",
+ "name": "Bahrain VAT",
+ "number_cards": [
+  {
+   "number_card_name": "Output VAT (Sales)"
+  },
+  {
+   "number_card_name": "Input VAT (Purchases)"
+  },
+  {
+   "number_card_name": "Net VAT Payable"
+  }
+ ],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "restrict_to_domain": "",
+ "roles": [],
+ "sequence_id": 1,
+ "shortcuts": [
+  {
+   "color": "Green",
+   "doc_view": "Report",
+   "label": "Bahrain VAT Report",
+   "link_to": "Bahrain VAT",
+   "restrict_to_domain": "",
+   "stats_filter": "",
+   "type": "Report"
+  },
+  {
+   "color": "Blue",
+   "doc_view": "List",
+   "label": "Bahrain VAT Setting",
+   "link_to": "Bahrain VAT Setting",
+   "restrict_to_domain": "",
+   "stats_filter": "",
+   "type": "DocType"
+  },
+  {
+   "color": "Yellow",
+   "doc_view": "List",
+   "label": "Sales Invoice",
+   "link_to": "Sales Invoice",
+   "restrict_to_domain": "",
+   "stats_filter": "",
+   "type": "DocType"
+  }
+ ],
+ "title": "Bahrain VAT"
+}
