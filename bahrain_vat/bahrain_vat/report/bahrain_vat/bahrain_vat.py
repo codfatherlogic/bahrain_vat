@@ -170,7 +170,22 @@ def get_data(filters):
 
 
 def get_tax_data_for_each_vat_setting(vat_setting, filters, doctype):
-	"""Get tax data for a specific VAT setting entry"""
+	"""Get tax data for a specific VAT setting entry.
+
+	The taxable Amount and the VAT must be scoped the *same* way, otherwise the
+	two columns disagree (e.g. Amount computed from item tax templates while VAT
+	is read from the invoice-level tax account).
+
+	- When a VAT account is configured, the box is defined by that account. The
+	  taxable base is the net of items on invoices that posted tax to the
+	  account, and the VAT is the tax posted to it. Items explicitly tagged to a
+	  *different* item tax template are excluded; items with no template are
+	  included (they are taxed at the invoice's rate). This keeps
+	  base x rate == VAT and reconciles with the Sales Register.
+	- When only an item tax template is configured (e.g. zero-rated / exempt
+	  boxes that have no VAT account), the base is the net of items carrying that
+	  template and the VAT is zero.
+	"""
 	from_date = filters.get("from_date")
 	to_date = filters.get("to_date")
 	company = filters.get("company")
@@ -193,11 +208,41 @@ def get_tax_data_for_each_vat_setting(vat_setting, filters, doctype):
 		fields=["name", "is_return"],
 	)
 
+	tax_doctype = "Purchase Taxes and Charges" if doctype == "Purchase Invoice" else "Sales Taxes and Charges"
+
 	for invoice in invoices:
 		invoice_items = []
 
-		# Check if item_tax_template is configured
-		if vat_setting.item_tax_template:
+		if vat_setting.account:
+			# Account-defined box: only invoices that posted tax to this account.
+			has_tax_account = frappe.db.exists(
+				tax_doctype,
+				{"docstatus": 1, "parent": invoice.name, "account_head": vat_setting.account},
+			)
+			if not has_tax_account:
+				continue
+
+			all_items = frappe.get_all(
+				f"{doctype} Item",
+				filters={"docstatus": 1, "parent": invoice.name},
+				fields=["item_code", "net_amount", "base_net_amount", "item_tax_template"],
+			)
+			# Include items for this rate: those matching the configured template
+			# and those with no template (untagged items taxed at the invoice's
+			# rate). Exclude items explicitly tagged to a different rate.
+			for item in all_items:
+				if (
+					not vat_setting.item_tax_template
+					or not item.get("item_tax_template")
+					or item.get("item_tax_template") == vat_setting.item_tax_template
+				):
+					invoice_items.append(item)
+
+			# VAT belongs to this box whenever the account posted tax, regardless
+			# of item-template tagging.
+			total_vat += get_tax_amount(vat_setting.account, doctype, invoice.name)
+		else:
+			# Template-only box (no VAT account, e.g. zero-rated / exempt).
 			invoice_items = frappe.get_all(
 				f"{doctype} Item",
 				filters={
@@ -208,27 +253,6 @@ def get_tax_data_for_each_vat_setting(vat_setting, filters, doctype):
 				fields=["item_code", "net_amount", "base_net_amount"],
 			)
 
-		# Fallback: check by account if no items match and account is configured
-		if not invoice_items and vat_setting.account:
-			tax_doctype = "Purchase Taxes and Charges" if doctype == "Purchase Invoice" else "Sales Taxes and Charges"
-			has_tax_account = frappe.db.exists(
-				tax_doctype,
-				{"docstatus": 1, "parent": invoice.name, "account_head": vat_setting.account},
-			)
-
-			if has_tax_account:
-				invoice_items = frappe.get_all(
-					f"{doctype} Item",
-					filters={
-						"docstatus": 1,
-						"parent": invoice.name,
-					},
-					fields=["item_code", "net_amount", "base_net_amount"],
-				)
-
-		if not invoice_items:
-			continue
-
 		for item in invoice_items:
 			amount = item.get("base_net_amount") or item.get("net_amount") or 0
 
@@ -236,10 +260,6 @@ def get_tax_data_for_each_vat_setting(vat_setting, filters, doctype):
 				total_amount += amount
 			else:
 				total_adjustment += amount
-
-		# Get VAT amount if account is configured
-		if vat_setting.account:
-			total_vat += get_tax_amount(vat_setting.account, doctype, invoice.name)
 
 	return total_amount, total_adjustment, total_vat
 
