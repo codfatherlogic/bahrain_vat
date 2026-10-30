@@ -35,8 +35,14 @@ def load_standard_template(docname):
 		{"box_number": "8(b)", "title": "Standard rated domestic purchases at 10%"},
 		{"box_number": "9", "title": "Imports subject to VAT paid at customs"},
 		{"box_number": "10", "title": "Imports subject to VAT deferral at customs"},
-		{"box_number": "11(a)", "title": "Imports subject to VAT accounted for through reverse charge mechanism at 5%"},
-		{"box_number": "11(b)", "title": "Imports subject to VAT accounted for through reverse charge mechanism at 10%"},
+		{
+			"box_number": "11(a)",
+			"title": "Imports subject to VAT accounted for through reverse charge mechanism at 5%",
+		},
+		{
+			"box_number": "11(b)",
+			"title": "Imports subject to VAT accounted for through reverse charge mechanism at 10%",
+		},
 		{"box_number": "12", "title": "Purchases subject to domestic reverse charge mechanism"},
 		{"box_number": "13", "title": "Purchases from non-registered suppliers, zero-rated/exempt purchases"},
 	]
@@ -69,29 +75,33 @@ def create_tax_account_and_template(company, tax_rate, account_name, parent_acco
 		frappe.throw(f"Item Tax Template '{template_full_name}' already exists")
 
 	# Create Tax Account
-	account = frappe.get_doc({
-		"doctype": "Account",
-		"account_name": account_name,
-		"parent_account": parent_account,
-		"company": company,
-		"root_type": "Liability",
-		"account_type": "Tax",
-		"tax_rate": float(tax_rate),
-	})
+	account = frappe.get_doc(
+		{
+			"doctype": "Account",
+			"account_name": account_name,
+			"parent_account": parent_account,
+			"company": company,
+			"root_type": "Liability",
+			"account_type": "Tax",
+			"tax_rate": float(tax_rate),
+		}
+	)
 	account.insert()
 
 	# Create Item Tax Template
-	template = frappe.get_doc({
-		"doctype": "Item Tax Template",
-		"title": template_name,
-		"company": company,
-		"taxes": [
-			{
-				"tax_type": account.name,
-				"tax_rate": float(tax_rate),
-			}
-		],
-	})
+	template = frappe.get_doc(
+		{
+			"doctype": "Item Tax Template",
+			"title": template_name,
+			"company": company,
+			"taxes": [
+				{
+					"tax_type": account.name,
+					"tax_rate": float(tax_rate),
+				}
+			],
+		}
+	)
 	template.insert()
 
 	return {

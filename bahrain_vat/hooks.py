@@ -259,4 +259,3 @@ fixtures = [
 		"filters": [["module", "in", "Bahrain Vat"]],
 	},
 ]
-
