@@ -21,3 +21,5 @@ jobs:
       frappe_versions: '["version-15"]'
       draft_frappe_versions: '["version-15"]'
       erpnext: false
+      runs_on: '"ubuntu-latest"'
+      require_tests: false  # no Frappe tests in the app yet; the check proves it installs
