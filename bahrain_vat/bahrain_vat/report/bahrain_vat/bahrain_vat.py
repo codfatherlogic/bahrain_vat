@@ -264,18 +264,22 @@ def get_tax_data_for_each_vat_setting(vat_setting, filters, doctype):
 	return total_amount, total_adjustment, total_vat
 
 
-def append_data(data, box_number, description, amount, adjustment, vat_amount, currency, is_header=False, is_total=False):
+def append_data(
+	data, box_number, description, amount, adjustment, vat_amount, currency, is_header=False, is_total=False
+):
 	"""Append a row to the report data"""
-	data.append({
-		"box_number": box_number,
-		"description": description,
-		"amount": amount if amount != "" else None,
-		"adjustment": adjustment if adjustment != "" else None,
-		"vat_amount": vat_amount if vat_amount != "" else None,
-		"currency": currency,
-		"is_header": is_header,
-		"is_total": is_total,
-	})
+	data.append(
+		{
+			"box_number": box_number,
+			"description": description,
+			"amount": amount if amount != "" else None,
+			"adjustment": adjustment if adjustment != "" else None,
+			"vat_amount": vat_amount if vat_amount != "" else None,
+			"currency": currency,
+			"is_header": is_header,
+			"is_total": is_total,
+		}
+	)
 
 
 def get_tax_amount(account_head, doctype, parent):
